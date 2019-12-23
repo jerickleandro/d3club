@@ -1,5 +1,5 @@
 {% load static%}
-
+{% load bootstrap4 %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -674,7 +674,7 @@
                 </div> <!-- end of col -->
                 <div class="col-lg-6">
                     
-                    <!-- Contact Form -->
+                    <!-- Contact Form 
                     <form id="contactForm" data-toggle="validator" data-focus="false">
                         <div class="form-group">
                             <input type="text" class="form-control-input" id="cname" required>
@@ -691,10 +691,21 @@
                             <label class="label-control" for="cmessage">Your message</label>
                             <div class="help-block with-errors"></div>
                         </div>
-                        
+                        -->
+                        {% bootstrap_messages %}
+                        <form action="{% url 'index' %}" method="post" class="form" autocomplete="off" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        {% bootstrap_form form %}
+
+
+
+
+                        {% buttons %}
                         <div class="form-group">
                             <button type="submit" class="form-control-submit-button">SUBMIT MESSAGE</button>
                         </div>
+                        {% endbuttons %}
                         <div class="form-message">
                             <div id="cmsgSubmit" class="h3 text-center hidden"></div>
                         </div>
