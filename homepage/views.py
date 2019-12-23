@@ -8,25 +8,22 @@ from .forms import ContatoModelForm
 from .models import Contato
 
 def index(request):
-    if str(request.user) != 'AnonymousUser':
-        if str(request.method) == 'POST':
-            form = ContatoModelForm(request.POST, request.FILES)
-            if form.is_valid():
+    if str(request.method) == 'POST':
+        form = ContatoModelForm(request.POST, request.FILES)
+        if form.is_valid():
 
-                form.save()
+            form.save()
 
-                messages.success(request, 'Contato salvo com sucesso.')
-                form = ContatoModelForm()
-            else:
-                messages.error(request, 'Erro ao salvar Contato.')
-        else:
+            messages.success(request, 'Contato salvo com sucesso.')
             form = ContatoModelForm()
-        context = {
-            'form': form
-        }
-        return render(request, 'index.html', context)
+        else:
+            messages.error(request, 'Erro ao salvar Contato.')
     else:
-        return redirect('index')
+        form = ContatoModelForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'index.html', context)
 
 def error404(request,Exception):
     template = loader.get_template('404.html')
